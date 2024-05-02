@@ -58,19 +58,18 @@ while True:
             difficulty = client_input
             guessme = generate_random_int(difficulty)
             conn.sendall(b"Enter your guess:")
-            tries = 0  # Initialize the number of tries
+            tries = 0  
         elif client_input.isdigit():
             guess = int(client_input)
             print(f"User guess attempt: {guess}")
-            tries += 1  # Increment the number of tries
+            tries += 1  
 
             if guess == guessme:
                 conn.sendall(b"Correct Answer!")
-                name = conn.recv(1024).decode().strip()  # Receive the user's name from the client
-                score = tries  # Set the score based on the number of tries
+                name = conn.recv(1024).decode().strip()
+                score = tries  
                 update_leaderboard(name, score, difficulty, leaderboard)
                 save_leaderboard(leaderboard)
-
                 conn.sendall(b"\nLeaderboard:\n" + json.dumps(leaderboard).encode())
                 conn.close()
                 conn = None
