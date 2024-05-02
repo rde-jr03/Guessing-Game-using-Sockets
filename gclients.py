@@ -5,15 +5,13 @@ port = 7777
 
 while True:
     s = socket.socket()
-    s.connect((host, port))  # Connect to the server
+    s.connect((host, port)) 
 
-    # Received the banner
     data = s.recv(1024)
-    # Print banner and get difficulty choice from user
+
     print(data.decode().strip())
     difficulty_choice = input("")
 
-    # Send difficulty choice to the server
     s.sendall(difficulty_choice.encode())
 
     while True:
@@ -22,9 +20,9 @@ while True:
         reply = s.recv(1024).decode().strip()
         if "Correct" in reply:
             print(reply)
-            name = input("Enter your name: ")  # Ask for the user's name
-            s.sendall(name.encode())  # Send the user's name to the server
-            s.sendall(difficulty_choice.encode())  # Send the difficulty choice to the server
+            name = input("Enter your name: ") 
+            s.sendall(name.encode()) 
+            s.sendall(difficulty_choice.encode())  
             break
         print(reply)
         continue
